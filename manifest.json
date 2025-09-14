@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Blogger Don't Track My Views Checker",
+  "version": "1.0",
+  "description": "Alerts if Blogger is tracking your own pageviews.",
+  "permissions": [
+    "cookies",
+    "notifications",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.blogger.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
