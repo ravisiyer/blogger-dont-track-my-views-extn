@@ -1,18 +1,22 @@
 {
   "manifest_version": 3,
   "name": "Blogger Don't Track My Views Checker",
-  "version": "1.0",
-  "description": "Alerts if Blogger is tracking your own pageviews.",
+  "version": "1.1",
+  "description": "Logs whether Blogger is tracking your own pageviews for multiple blogs.",
   "permissions": [
     "cookies",
-    "notifications",
     "tabs",
     "storage"
   ],
   "host_permissions": [
-    "https://www.blogger.com/*"
+    "https://ravisiyer.blogspot.com/*",
+    "https://ravisiyermisc.blogspot.com/*",
+    "https://raviswdev.blogspot.com/*"
   ],
   "background": {
     "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Check Blogger Don't Track"
   }
 }
