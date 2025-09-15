@@ -18,10 +18,21 @@ function updateBadge() {
   });
 
   Promise.all(promises).then(() => {
-    // Show number of blogs where _ns is OFF, or ✓ if all ON
+    // Set badge text
     const text = offCount > 0 ? `${offCount}` : "✓"; 
     chrome.action.setBadgeText({ text });
     chrome.action.setBadgeBackgroundColor({ color: offCount > 0 ? 'red' : 'green' });
+
+    // Show toast/notification if any blog is missing the cookie
+    if (offCount > 0) {
+      chrome.notifications.create({
+        type: "basic",
+        iconUrl: "icon.png",
+        title: "Blogger Cookie Alert",
+        message: `${offCount} blog(s) are tracking your own views. Click the extension icon to check details.`,
+        priority: 2
+      });
+    }
   });
 }
 
