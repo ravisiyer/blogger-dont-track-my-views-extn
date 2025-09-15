@@ -6,6 +6,10 @@ const blogDomains = [
 
 const statusList = document.getElementById("statusList");
 
+// Clear previous list items
+statusList.innerHTML = "";
+
+// Check cookies and update popup list
 blogDomains.forEach(domain => {
   chrome.cookies.get({ url: domain, name: "_ns" }, (cookie) => {
     const li = document.createElement("li");
@@ -19,3 +23,6 @@ blogDomains.forEach(domain => {
     statusList.appendChild(li);
   });
 });
+
+// Tell background to update badge (best-effort)
+chrome.runtime.sendMessage({ action: "updateBadge" });

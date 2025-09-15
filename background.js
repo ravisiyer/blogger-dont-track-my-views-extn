@@ -1,25 +1,37 @@
-// List of your Blogger blogs
 const blogDomains = [
   "https://ravisiyer.blogspot.com",
   "https://ravisiyermisc.blogspot.com",
   "https://raviswdev.blogspot.com"
 ];
 
-// Function to check _ns cookie for each blog
-function checkBlogs() {
-  blogDomains.forEach(domain => {
-    chrome.cookies.get({ url: domain, name: "_ns" }, (cookie) => {
-      if (!cookie) {
-        console.warn(`⚠️ 'Don't track my views' is OFF for ${domain}`);
-      } else {
-        console.log(`✅ Don't track is ON for ${domain}, _ns value: ${cookie.value}`);
-      }
+// Function to check cookies and update badge
+function updateBadge() {
+  let offCount = 0;
+
+  const promises = blogDomains.map(domain => {
+    return new Promise(resolve => {
+      chrome.cookies.get({ url: domain, name: "_ns" }, (cookie) => {
+        if (!cookie) offCount++;
+        resolve();
+      });
     });
+  });
+
+  Promise.all(promises).then(() => {
+    // Show number of blogs where _ns is OFF, or ✓ if all ON
+    const text = offCount > 0 ? `${offCount}` : "✓"; 
+    chrome.action.setBadgeText({ text });
+    chrome.action.setBadgeBackgroundColor({ color: offCount > 0 ? 'red' : 'green' });
   });
 }
 
-// Run check on Chrome startup
-chrome.runtime.onStartup.addListener(checkBlogs);
+// Run badge update immediately when service worker starts
+updateBadge();
 
-// Run check when extension icon is clicked
-chrome.action.onClicked.addListener(checkBlogs);
+// Listen for messages from popup
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg.action === "updateBadge") updateBadge();
+});
+
+// Optional: run on Chrome startup (service worker may already be alive)
+chrome.runtime.onStartup.addListener(updateBadge);
