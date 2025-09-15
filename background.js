@@ -5,7 +5,7 @@ const blogDomains = [
 ];
 
 // Function to check cookies and update badge
-function updateBadge() {
+function updateBadge(showNotification = true) {
   let offCount = 0;
 
   const promises = blogDomains.map(domain => {
@@ -18,13 +18,11 @@ function updateBadge() {
   });
 
   Promise.all(promises).then(() => {
-    // Set badge text
-    const text = offCount > 0 ? `${offCount}` : "✓"; 
+    const text = offCount > 0 ? `${offCount}` : "✓";
     chrome.action.setBadgeText({ text });
     chrome.action.setBadgeBackgroundColor({ color: offCount > 0 ? 'red' : 'green' });
 
-    // Show toast/notification if any blog is missing the cookie
-    if (offCount > 0) {
+    if (showNotification && offCount > 0) {
       chrome.notifications.create({
         type: "basic",
         iconUrl: "icon.png",
@@ -36,12 +34,12 @@ function updateBadge() {
   });
 }
 
-// Run badge update immediately when service worker starts
-updateBadge();
+// Run on service worker start (startup)
+updateBadge(); // showNotification defaults to true
 
-// Listen for messages from popup
+// When receiving message from popup, don't show notification
 chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.action === "updateBadge") updateBadge();
+  if (msg.action === "updateBadge") updateBadge(false);
 });
 
 // Optional: run on Chrome startup (service worker may already be alive)
