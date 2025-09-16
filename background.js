@@ -1,4 +1,4 @@
-import { BLOG_DOMAINS, BLOGGER_COOKIE_NAME } from "./config.js";
+import { BLOG_DOMAINS, BLOGGER_COOKIE_NAME, STARTUP_DELAY_MINUTES } from "./config.js";
 import { checkBlogs, updateBadge } from "./utils.js";
 
 async function updateBadgeAndToast(showToast = false) {
@@ -17,10 +17,11 @@ async function updateBadgeAndToast(showToast = false) {
   }
 }
 
-// Schedule a one-shot alarm 1 minute after Chrome startup
+// Schedule a one-shot alarm after configured delay
 chrome.runtime.onStartup.addListener(() => {
+  chrome.alarms.create("delayedCheck", { delayInMinutes: STARTUP_DELAY_MINUTES });
   // chrome.alarms.create("delayedCheck", { delayInMinutes: 1 });
-  chrome.alarms.create("delayedCheck", { delayInMinutes: 5 / 60 });
+  // chrome.alarms.create("delayedCheck", { delayInMinutes: 5 / 60 });
 });
 
 // When the alarm fires, do the check once
