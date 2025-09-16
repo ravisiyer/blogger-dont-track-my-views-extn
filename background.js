@@ -17,6 +17,17 @@ async function updateBadgeAndToast(showToast = false) {
   }
 }
 
+// Schedule a one-shot alarm 1 minute after Chrome startup
 chrome.runtime.onStartup.addListener(() => {
-  updateBadgeAndToast(true);
+  // chrome.alarms.create("delayedCheck", { delayInMinutes: 1 });
+  chrome.alarms.create("delayedCheck", { delayInMinutes: 5 / 60 });
+});
+
+// When the alarm fires, do the check once
+chrome.alarms.onAlarm.addListener(alarm => {
+  if (alarm.name === "delayedCheck") {
+    updateBadgeAndToast(true);
+    // optional: clear the alarm explicitly, though it auto-clears after firing once
+    chrome.alarms.clear("delayedCheck");
+  }
 });
