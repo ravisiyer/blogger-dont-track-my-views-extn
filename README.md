@@ -21,10 +21,10 @@ A Chrome Extension to check whether Blogger is tracking your own pageviews acros
    - Download a [release](https://github.com/ravisiyer/blogger-dont-track-my-views-extn/releases).  
         **Or**  
    - Clone or download this repository.  
-   > **Note:** If you downloaded a zip file (release or repository), unzip it to a folder first.
-2. Open `chrome://extensions/` in Chrome.  
-3. Enable **Developer mode**.  
-4. Click **Load unpacked** and select the folder containing this extension.
+2. If you downloaded a zip file (release or repository), unzip it to a folder.
+3. Open `chrome://extensions/` in Chrome.  
+4. Enable **Developer mode**.  
+5. Click **Load unpacked** and select the folder containing this extension.
 
 ## Configuration
 
