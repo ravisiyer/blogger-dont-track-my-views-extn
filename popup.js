@@ -1,28 +1,20 @@
-const blogDomains = [
-  "https://ravisiyer.blogspot.com",
-  "https://ravisiyermisc.blogspot.com",
-  "https://raviswdev.blogspot.com"
-];
+import { BLOG_DOMAINS, BLOGGER_COOKIE_NAME } from "./config.js";
+import { checkBlogs, updateBadge } from "./utils.js";
 
-const statusList = document.getElementById("statusList");
+async function renderPopup() {
+  const container = document.getElementById("status");
+  container.innerHTML = "";
 
-// Clear previous list items
-statusList.innerHTML = "";
+  const results = await checkBlogs(BLOG_DOMAINS, BLOGGER_COOKIE_NAME);
+  await updateBadge(results);
 
-// Check cookies and update popup list
-blogDomains.forEach(domain => {
-  chrome.cookies.get({ url: domain, name: "_ns" }, (cookie) => {
-    const li = document.createElement("li");
-    if (cookie) {
-      li.textContent = `${domain}: ON (_ns=${cookie.value})`;
-      li.className = "on";
-    } else {
-      li.textContent = `${domain}: OFF`;
-      li.className = "off";
-    }
-    statusList.appendChild(li);
+  results.forEach(r => {
+    const div = document.createElement("div");
+    div.textContent = r.hasCookie
+      ? `✅ Don't track is ON for ${r.domain}, _ns value: ${r.cookie.value}`
+      : `⚠️ Don't track my views is OFF for ${r.domain}`;
+    container.appendChild(div);
   });
-});
+}
 
-// Tell background to update badge (best-effort)
-chrome.runtime.sendMessage({ action: "updateBadge" });
+document.addEventListener("DOMContentLoaded", renderPopup);

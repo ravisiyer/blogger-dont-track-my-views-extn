@@ -2,6 +2,8 @@
 
 A Chrome Extension to check whether Blogger is tracking your own pageviews across multiple blogs.  
 
+***To be updated to be in sync with latest code***
+
 ## Features
 
 - Displays the `_ns` cookie status for each configured Blogger blog.
