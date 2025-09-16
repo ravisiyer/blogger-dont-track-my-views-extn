@@ -1,0 +1,8 @@
+{
+  // Prevent the PowerShell extension from automatically opening
+  // its dedicated terminal in this project
+  "powershell.startAutomatically": false,
+
+  // Optional: keep your usual integrated terminal (adjust if needed)
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
+}

@@ -10,9 +10,7 @@
     "alarms"
   ],
   "host_permissions": [
-    "https://ravisiyer.blogspot.com/*",
-    "https://ravisiyermisc.blogspot.com/*",
-    "https://raviswdev.blogspot.com/*"
+    "https://*.blogspot.com/*"
   ],
   "background": {
     "service_worker": "background.js",

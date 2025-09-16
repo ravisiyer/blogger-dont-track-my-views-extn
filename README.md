@@ -17,7 +17,10 @@ A Chrome Extension to check whether Blogger is tracking your own pageviews acros
 
 ## Installation
 
-1. Clone or download this repository.  
+1. Download the extension:
+   - Download a [release](https://github.com/ravisiyer/blogger-dont-track-my-views-extn/releases).  
+        **Or**  
+   - Clone or download this repository.  
 2. Open `chrome://extensions/` in Chrome.  
 3. Enable **Developer mode**.  
 4. Click **Load unpacked** and select the folder containing this extension.
@@ -42,11 +45,19 @@ A Chrome Extension to check whether Blogger is tracking your own pageviews acros
 
 - To check other blogs or adjust cookie name/startup delay, edit config.js accordingly.
 
+- config.default.js is a clean fallback copy of the default configuration.
+
+  - If your config.js becomes unusable or you want to reset, simply delete it and copy config.default.js as a fresh config.js.
+
+- Permissions in manifest.json:  
+  - By default, the extension’s `manifest.json` provides permission for **all `blogspot.com` blogs** (`https://*.blogspot.com/*`).  
+  - If you want to track blogs on other domains, you will need to update `manifest.json` to include the corresponding host permissions.
+
 ## Author and Background
 
 Ravi S. Iyer with assistance from ChatGPT. 
 
-For more context, see the associated blog post: [Blogger's Don't track my views setting gets reset after some time - Probable cause; Exploring Chrome extn for notification if reset](https://raviswdev.blogspot.com/2025/09/bloggers-dont-track-my-views-setting.html)
+For more context, see the associated blog post: [Blogger's Don't track my views setting gets reset after some time - Probable cause; Chrome extn for notification if reset](https://raviswdev.blogspot.com/2025/09/bloggers-dont-track-my-views-setting.html)
 
 ## License
 
