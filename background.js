@@ -9,7 +9,7 @@ async function updateBadgeAndToast(showToast = false) {
   if (missingCount > 0 && showToast) {
     chrome.notifications.create({
       type: "basic",
-      iconUrl: "icon.png",
+      iconUrl: "icons/icon48.png",
       title: "Blogger Views Tracking",
       message: `${missingCount} blog(s) may be tracking your views.`,
       priority: 2
