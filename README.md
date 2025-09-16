@@ -2,8 +2,6 @@
 
 A Chrome Extension to check whether Blogger is tracking your own pageviews across multiple blogs.  
 
-***To be updated to be in sync with latest code***
-
 ## Features
 
 - Displays the `_ns` cookie status for each configured Blogger blog.
@@ -13,7 +11,9 @@ A Chrome Extension to check whether Blogger is tracking your own pageviews acros
 - Displays a **badge** on the extension icon:
   - **Green tick (✓)** if all blogs have `_ns` cookie set.
   - **Red number** showing how many blogs do **not** have the cookie.
-- Automatically updates the badge on **Chrome startup** and when opening the popup.
+- Automatically shows a **toast notification** at Chrome startup if one or more blogs are tracking your views.
+- Startup check is **delayed by a configurable amount of time** (default 5 seconds) to avoid slowing down Chrome startup.
+- Popup always provides **on-demand detailed status** for all configured blogs.
 
 ## Installation
 
@@ -32,7 +32,15 @@ A Chrome Extension to check whether Blogger is tracking your own pageviews acros
   https://raviswdev.blogspot.com
   ```
 
-- To check other blogs, edit background.js and popup.js and update the blogDomains array.
+- Configuration options are in config.js:
+
+  - BLOG_DOMAINS: list of blogs to check.
+
+  - BLOGGER_COOKIE_NAME: the name of the Blogger cookie (default _ns).
+
+  - STARTUP_DELAY_MINUTES: delay before the startup check (default 5 / 60 = 5 seconds).
+
+- To check other blogs or adjust cookie name/startup delay, edit config.js accordingly.
 
 ## Author and Background
 
